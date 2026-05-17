@@ -1,18 +1,24 @@
 # ☁️ Claude Code + Ollama Cloud Bridge
 
-This project enables a hybrid environment where **Ollama** runs in Docker (serving as a bridge to cloud LLMs) and **Claude Code** runs locally on your **Fedora** system. This setup allows you to leverage powerful cloud models without needing high-end local hardware.
+This project enables a hybrid environment where **Ollama** runs in Docker (serving as a bridge to cloud LLMs) and **Claude Code** runs locally on your **Ubuntu** system. This setup allows you to leverage powerful cloud models without needing high-end local hardware.
 
 ---
 
 ## 🏗️ Architecture
 
 - **Ollama (Docker Container):** Acts as a proxy server connecting to cloud models (e.g., MiniMax, DeepSeek, Gemma).
-- **Claude Code (Host Machine):** The Anthropic CLI agent running directly on Fedora 42, providing full access to your terminal and project files.
+- **Claude Code (Host Machine):** The Anthropic CLI agent running directly on Ubuntu 26.04, providing full access to your terminal and project files.
 - **Persistence:** All Ollama configurations and models are stored in the local `./ollama_data` directory.
 
 ---
 
 ## 🚀 Quick Start Guide
+
+### Step 0: First Run Instructions (CUDA Drivers)
+Before running the infrastructure, check if you have an NVIDIA GPU and install the required CUDA drivers.
+1. Run `./manage.sh` and select **Option 8 (Options)**, then **Option 1 (Install CUDA drivers)**.
+2. The script will automatically verify compatibility and install the recommended drivers via `apt`.
+3. Reboot your system after installation if prompted.
 
 ### Step 1: Infrastructure Setup (Docker)
 Clone the repository and launch the management script:
@@ -37,14 +43,14 @@ To access cloud models for free, you must authorize your instance:
 3. Once successful, your container can access models with the `:cloud` suffix.
 
 ### Step 3: Install Claude Code (Host)
-Install the agent directly on your Fedora system to ensure it has proper file system access:
+Install the agent directly on your Ubuntu system to ensure it has proper file system access:
 
 ```bash
 # Install Node.js (if not already present)
-sudo dnf install nodejs
+sudo apt update && sudo apt install -y nodejs npm
 
 # Install Claude Code globally
-npm install -g @anthropic-ai/claude-code
+sudo npm install -g @anthropic-ai/claude-code
 ```
 
 ---
@@ -130,7 +136,7 @@ The included `manage.sh` script simplifies container orchestration:
 
 ---
 
-## 📋 Fedora 42 Implementation Notes
+## 📋 Ubuntu 26.04 Implementation Notes
 
 - **Permissions:** If Docker encounters permission issues, run the manager with:
   ```bash

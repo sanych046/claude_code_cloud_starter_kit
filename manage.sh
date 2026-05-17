@@ -30,6 +30,7 @@ while true; do
     echo "5) List Available Models"
     echo "6) Run Model"
     echo "7) FULL REMOVAL (Containers and Data)"
+    echo "8) Options"
     echo "0) Exit"
     echo "------------------------------------"
     read -p "Select an option: " choice
@@ -84,6 +85,30 @@ while true; do
                 rm -rf "$OLLAMA_DATA_DIR"
                 echo -e "${RED}Everything deleted.${NC}"
             fi
+            ;;
+        8)
+            while true; do
+                echo -e "\n${YELLOW}--- Options ---${NC}"
+                echo "1) Install CUDA drivers"
+                echo "0) Back"
+                echo "---------------"
+                read -p "Select an option: " opt_choice
+                case $opt_choice in
+                    1)
+                        if [ -f "./install_cuda.sh" ]; then
+                            ./install_cuda.sh
+                        else
+                            echo -e "${RED}install_cuda.sh not found.${NC}"
+                        fi
+                        ;;
+                    0)
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Invalid choice.${NC}"
+                        ;;
+                esac
+            done
             ;;
         0)
             echo "Goodbye!"
